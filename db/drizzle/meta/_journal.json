@@ -15,6 +15,13 @@
       "when": 1741244221877,
       "tag": "0001_third_revanche",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741323835026,
+      "tag": "0002_misty_lady_vermin",
+      "breakpoints": true
     }
   ]
 }

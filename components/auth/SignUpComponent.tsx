@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent } from "react";
+import { ChangeEvent, useActionState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FormCard } from "./FormCard";
@@ -9,7 +9,16 @@ import { SignUpSchema } from "@/schema/auth";
 import { TSignUpFormError } from "@/types/form";
 import { FormMessage } from "./FormMessage";
 
+import { signUp } from "@/actions/signUp";
+
 export function SignUpComponent(){
+    /**
+     * useFormState
+     * - 서버 action.
+     * - form 제출 or data mutation에 사용한다.
+     */
+    const[error, action] = useActionState(signUp, undefined)
+    
     const {errors, validateField} = useFormValidate<TSignUpFormError>(SignUpSchema);
 
     const handleChange = (e : ChangeEvent<HTMLInputElement>) =>{
@@ -17,11 +26,11 @@ export function SignUpComponent(){
         validateField(name, value);
 
     }
-    console.log(errors)
+
    return (
         <>
             <FormCard title="계정 만들기" footer={{label:"이미 계정이 있으신가요?",  href:"/login"}}>
-                <form className="space-y-6">
+                <form action={action}className="space-y-6">
                     {/* 이름*/}
                     <div className="space-y-1">
                         <Label htmlFor="name">이름</Label>
