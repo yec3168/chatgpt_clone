@@ -62,9 +62,6 @@ export const signUp = async (_:unknown, formData: FormData) =>{
     
     // 3-1. redirect login
     redirect("/login")
-   
-
-     //  4. 성공/실패처리.
     
 
 }
