@@ -54,13 +54,14 @@ export const signUp = async (_:unknown, formData: FormData) =>{
         await db.insert(user).values({name, email, password:hashedPassword});
         
 
-        // 3-1. redirect login
-        redirect("/login")
+       
     }catch(error){
         console.error("error ", error)
         return { errorMessage : "사용자 인증 중 문제가 발생하였습니다."} 
     }
-
+    
+    // 3-1. redirect login
+    redirect("/login")
    
 
      //  4. 성공/실패처리.

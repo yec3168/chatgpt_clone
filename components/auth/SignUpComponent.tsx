@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, useActionState } from "react";
+import { ChangeEvent, useActionState, useEffect } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FormCard } from "./FormCard";
@@ -10,6 +10,7 @@ import { TSignUpFormError } from "@/types/form";
 import { FormMessage } from "./FormMessage";
 
 import { signUp } from "@/actions/signUp";
+import toast from "react-hot-toast";
 
 export function SignUpComponent(){
     /**
@@ -18,7 +19,7 @@ export function SignUpComponent(){
      * - form 제출 or data mutation에 사용한다.
      */
     const[error, action] = useActionState(signUp, undefined)
-    
+
     const {errors, validateField} = useFormValidate<TSignUpFormError>(SignUpSchema);
 
     const handleChange = (e : ChangeEvent<HTMLInputElement>) =>{
@@ -26,6 +27,13 @@ export function SignUpComponent(){
         validateField(name, value);
 
     }
+
+    useEffect( () => {
+        //form submit시 에러가 발생하면 Toast로 알려줌
+        if(error?.errorMessage){
+            toast.error(error.errorMessage);
+        }
+    }, [error])
 
    return (
         <>
