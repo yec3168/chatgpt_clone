@@ -3,6 +3,9 @@
 import { getUserByEmail } from "@/data/user";
 import { LoginSchema } from "@/schema/auth";
 import * as bcrypt from 'bcrypt';
+import { createSession } from "./session";
+import { redirect } from "next/navigation";
+
 
 export const login = async(_:unknown, formData:FormData) =>{
    
@@ -38,11 +41,17 @@ export const login = async(_:unknown, formData:FormData) =>{
                 errorMessage:"아이디혹은 비밀번호가 틀렸습니다."
             })
         }
+
+        //jwt 생성.
+        await createSession({id, name});
+
+    // 3. 성공 / 실패처리.
     }catch(error){
         console.error("login error ", error)
         return ({
             errorMessage:"로그인에 실패하였습니다."
         });
     }
-    // 3. 성공 / 실패처리.
+    
+    redirect("/")
 }

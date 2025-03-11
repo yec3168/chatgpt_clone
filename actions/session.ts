@@ -1,7 +1,9 @@
 "use server"
 
 import {jwtVerify, SignJWT} from 'jose'
-import { cookies } from 'next/headers';
+
+import { cookies  } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 const secretKey = process.env.SESSION_SECRET;
 const encodeKey = new TextEncoder().encode(secretKey);
@@ -69,4 +71,22 @@ export const createSession = async(payload:SessionPayload) => {
         sameSite: 'lax',
         path:"/", 
     })
+}
+
+// Session delete
+export const deleteSession  = async() =>{
+
+    (await cookies()).delete("session");
+}
+
+
+export const verifySession = async() =>{
+    const cookie = (await cookies()).get('session')?.value;
+    const session = await verify(cookie);
+
+    if(!session?.id){
+        redirect("/login")
+    }
+
+    return session
 }
