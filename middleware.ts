@@ -3,7 +3,6 @@ import type { NextRequest } from 'next/server'
 import { AUTH_ROUTES, BASE_URL, PUBLIC_ROUTES } from './constants/routes';
 import { cookies } from 'next/headers';
 import { verify } from './actions/session';
-import { redirect } from 'next/navigation';
 
  
 // This function can be marked `async` if using `await` inside
