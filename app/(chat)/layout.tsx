@@ -1,3 +1,4 @@
+import { HeaderComponent } from "@/components/chat/HeaderComponent";
 import { SidebarComponent } from "@/components/chat/SidebarComponent";
 import React from "react";
 
@@ -13,7 +14,11 @@ export default function ChatLayout ({children}: {children:React.ReactNode}){
                 <SidebarComponent />
             </div>
             {/* Header + chat 영역 */}
-            {children}
+            <div className="flex flex-col flex-1 h-full">
+                {/* header 영역 */}
+                <HeaderComponent />
+                {children}
+            </div>
         </div>
     )
 }
